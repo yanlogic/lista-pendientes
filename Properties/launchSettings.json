@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "iista-pendientes (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "iista-pendientes (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
