@@ -92,6 +92,12 @@
                 <TextBlock Text="Tip del paseo:" />
                 <TextBlock x:Name="TipAireLibre" TextWrapping="Wrap" />
             </StackPanel>
+            <StackPanel x:Name="PanelCocina" Spacing="8" Visibility="Collapsed">
+                <TextBlock Text="Ideas para cocinar:" />
+                <ListView x:Name="ListaRecetas" SelectionMode="None" />
+                <HyperlinkButton Content="Buscar más recetas"
+                     NavigateUri="https://www.google.com/search?q=recetas+para+la+cena" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

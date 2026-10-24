@@ -49,6 +49,7 @@ namespace listas_pendientes
                     tareas.Add(t);
             }
             ListaFuentes.ItemsSource = fuentesEjemplo;
+            ListaRecetas.ItemsSource = ideasCocina;
         }
 
         private void BotonAgregar_Click(object sender, RoutedEventArgs e)
@@ -97,6 +98,7 @@ namespace listas_pendientes
 
             PanelAcademico.Visibility = Visibility.Collapsed;
             PanelAireLibre.Visibility = Visibility.Collapsed;
+            PanelCocina.Visibility = Visibility.Collapsed;
 
             if (tareaElegida == null)
             {
@@ -118,6 +120,10 @@ namespace listas_pendientes
             {
                 PanelAireLibre.Visibility = Visibility.Visible;
                 TipAireLibre.Text = tipsAireLibre[azar.Next(tipsAireLibre.Length)];
+            }
+            else if (tipo == Tipo_tarea.cocina)
+            {
+                PanelCocina.Visibility = Visibility.Visible;
             }
         }
 
@@ -159,6 +165,15 @@ namespace listas_pendientes
             "Lleva agua para ti y para tu mascota, aunque el paseo sea corto.",
             "Los paseos con olfateo cansan más a un perro que correr: déjalo oler con calma.",
             "Salir a caminar 20 minutos ya mejora el ánimo y la concentración."
+        };
+
+        private string[] ideasCocina =
+        {
+            "Arroz con pollo",
+            "Tallarines verdes",
+            "Tortilla de verduras",
+            "Lomo saltado",
+            "Sopa de verduras con fideos"
         };
     }
 }
