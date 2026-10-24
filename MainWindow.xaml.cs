@@ -1,3 +1,4 @@
+using lista_pendientes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -87,10 +88,13 @@ namespace listas_pendientes
             if (tareaElegida == null)
             {
                 TituloPanel.Text = "Selecciona una tarea";
+                TipoPanel.Text = "";
             }
             else
             {
                 TituloPanel.Text = tareaElegida.Nombre;
+                Tipo_tarea tipo = detector_tipo.Detectar(tareaElegida.Nombre);
+                TipoPanel.Text = "Tipo: " + tipo;
             }
         }
 

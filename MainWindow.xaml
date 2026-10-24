@@ -61,7 +61,10 @@
             
         </Grid>
 
-        <TextBlock Grid.Column="2" x:Name="TituloPanel" Text="Selecciona una tarea" FontSize="20" Margin="16" />
+        <StackPanel Grid.Column="2" Margin="16" Spacing="8">
+            <TextBlock x:Name="TituloPanel" Text="Selecciona una tarea" FontSize="20" />
+            <TextBlock x:Name="TipoPanel" Text="" />
+        </StackPanel>
 
     </Grid>
 </Window>
