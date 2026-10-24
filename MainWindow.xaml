@@ -85,6 +85,13 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
+            <StackPanel x:Name="PanelAireLibre" Spacing="8" Visibility="Collapsed">
+                <TextBlock Text="Parques cercanos:" />
+                <HyperlinkButton Content="Buscar parques cerca de mí en Google Maps"
+                     NavigateUri="https://www.google.com/maps/search/parques+cerca+de+mi" />
+                <TextBlock Text="Tip del paseo:" />
+                <TextBlock x:Name="TipAireLibre" TextWrapping="Wrap" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

@@ -95,27 +95,29 @@ namespace listas_pendientes
         {
             Tarea? tareaElegida = ListaTareas.SelectedItem as Tarea;
 
+            PanelAcademico.Visibility = Visibility.Collapsed;
+            PanelAireLibre.Visibility = Visibility.Collapsed;
+
             if (tareaElegida == null)
             {
                 TituloPanel.Text = "Selecciona una tarea";
                 TipoPanel.Text = "";
-                PanelAcademico.Visibility = Visibility.Collapsed;
+                return;
             }
-            else
-            {
-                TituloPanel.Text = tareaElegida.Nombre;
-                Tipo_tarea tipo = detector_tipo.Detectar(tareaElegida.Nombre);
-                TipoPanel.Text = "Tipo: " + tipo;
 
-                if (tipo == Tipo_tarea.academica)
-                {
-                    PanelAcademico.Visibility = Visibility.Visible;
-                    CajaTema.Text = tareaElegida.Tema;
-                }
-                else
-                {
-                    PanelAcademico.Visibility = Visibility.Collapsed;
-                }
+            TituloPanel.Text = tareaElegida.Nombre;
+            Tipo_tarea tipo = detector_tipo.Detectar(tareaElegida.Nombre);
+            TipoPanel.Text = "Tipo: " + tipo;
+
+            if (tipo == Tipo_tarea.academica)
+            {
+                PanelAcademico.Visibility = Visibility.Visible;
+                CajaTema.Text = tareaElegida.Tema;
+            }
+            else if (tipo == Tipo_tarea.aireLibre)
+            {
+                PanelAireLibre.Visibility = Visibility.Visible;
+                TipAireLibre.Text = tipsAireLibre[azar.Next(tipsAireLibre.Length)];
             }
         }
 
@@ -148,5 +150,15 @@ namespace listas_pendientes
             todas.AddRange(completadas);
             almacen_tareas.Guardar(todas);
         }
+
+        private Random azar = new Random();
+
+        private string[] tipsAireLibre =
+        {
+            "Si el piso está muy caliente para tu mano, también lo está para las patitas de tu perro.",
+            "Lleva agua para ti y para tu mascota, aunque el paseo sea corto.",
+            "Los paseos con olfateo cansan más a un perro que correr: déjalo oler con calma.",
+            "Salir a caminar 20 minutos ya mejora el ánimo y la concentración."
+        };
     }
 }
