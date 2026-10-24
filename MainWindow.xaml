@@ -64,6 +64,13 @@
         <StackPanel Grid.Column="2" Margin="16" Spacing="8">
             <TextBlock x:Name="TituloPanel" Text="Selecciona una tarea" FontSize="20" />
             <TextBlock x:Name="TipoPanel" Text="" />
+            <StackPanel x:Name="PanelAcademico" Spacing="8" Visibility="Collapsed">
+                <TextBlock Text="Tema del trabajo:" />
+                <TextBox x:Name="CajaTema" PlaceholderText="Ej. Anafilaxia en niños" TextChanged="CajaTema_TextChanged" />
+                <TextBlock Text="Apps sugeridas:" />
+                <TextBlock Text="• Word" />
+                <TextBlock Text="• PowerPoint" />
+            </StackPanel>
         </StackPanel>
 
     </Grid>

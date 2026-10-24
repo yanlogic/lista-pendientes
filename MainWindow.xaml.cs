@@ -89,13 +89,33 @@ namespace listas_pendientes
             {
                 TituloPanel.Text = "Selecciona una tarea";
                 TipoPanel.Text = "";
+                PanelAcademico.Visibility = Visibility.Collapsed;
             }
             else
             {
                 TituloPanel.Text = tareaElegida.Nombre;
                 Tipo_tarea tipo = detector_tipo.Detectar(tareaElegida.Nombre);
                 TipoPanel.Text = "Tipo: " + tipo;
+
+                if (tipo == Tipo_tarea.academica)
+                {
+                    PanelAcademico.Visibility = Visibility.Visible;
+                    CajaTema.Text = tareaElegida.Tema;
+                }
+                else
+                {
+                    PanelAcademico.Visibility = Visibility.Collapsed;
+                }
             }
+        }
+
+        private void CajaTema_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Tarea? tareaElegida = ListaTareas.SelectedItem as Tarea;
+            if (tareaElegida == null) return;
+
+            tareaElegida.Tema = CajaTema.Text;
+            GuardarTodo();
         }
 
         private void BotonCompletar_Click(object sender, RoutedEventArgs e)
