@@ -76,6 +76,14 @@
                     <Run Text="• Canva" FontWeight="Bold" />
                     <Run Text=" ← para armar la presentación o exposición" />
                 </TextBlock>
+                <TextBlock Text="Fuentes sugeridas:" />
+                <ListView x:Name="ListaFuentes" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:Fuente">
+                            <HyperlinkButton Content="{x:Bind Titulo}" NavigateUri="{x:Bind Enlace}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackPanel>
         </StackPanel>
     </Grid>

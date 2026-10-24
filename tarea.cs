@@ -21,4 +21,10 @@ namespace listas_pendientes
             return nombre;
         }
     }
+
+    public class Fuente
+    {
+        public string Titulo { get; set; } = "";
+        public Uri? Enlace { get; set; }
+    }
 }

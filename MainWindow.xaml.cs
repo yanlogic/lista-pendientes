@@ -27,6 +27,15 @@ namespace listas_pendientes
     {
         private ObservableCollection<Tarea> tareas = new ObservableCollection<Tarea>();
         private ObservableCollection<Tarea> completadas = new ObservableCollection<Tarea>();
+
+        private List<Fuente> fuentesEjemplo = new List<Fuente>
+        {
+            new Fuente { Titulo = "SciELO", Enlace = new Uri("https://scielo.org") },
+            new Fuente { Titulo = "Redalyc", Enlace = new Uri("https://www.redalyc.org") },
+            new Fuente { Titulo = "Dialnet", Enlace = new Uri("https://dialnet.unirioja.es") },
+            new Fuente { Titulo = "Google Académico", Enlace = new Uri("https://scholar.google.com") }
+        };
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +48,7 @@ namespace listas_pendientes
                 else
                     tareas.Add(t);
             }
+            ListaFuentes.ItemsSource = fuentesEjemplo;
         }
 
         private void BotonAgregar_Click(object sender, RoutedEventArgs e)
