@@ -292,7 +292,7 @@ namespace listas_pendientes
                 configuracion.GuardarClave(cajaClave.Password.Trim());
 
                 string modelo = cajaModelo.Text.Trim();
-                configuracion.GuardarModelo(modelo == "" ? "gemini-3.7-flash" : modelo);
+                configuracion.GuardarModelo(modelo == "" ? "gemini-flash-lite-latest" : modelo);
             }
         }
 
