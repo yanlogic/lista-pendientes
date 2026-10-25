@@ -1,10 +1,11 @@
 ﻿using Windows.Security.Credentials;
+using Windows.Storage;
 
 namespace lista_pendientes
 {
     internal class configuracion
     {
-        private const string resourceName = "ListaPendientes.Tavily";
+        private const string resourceName = "ListaPendientes.IA";
         private const string userName = "api_key";
 
         public static void GuardarClave(string clave)
@@ -42,6 +43,21 @@ namespace lista_pendientes
             catch
             {
             }
+        }
+        public static string LeerModelo()
+        {
+            object? valor = ApplicationData.Current.LocalSettings.Values["modelo"];
+            return valor as string ?? "gemini-3.7-flash";
+        }
+
+        public static void GuardarModelo(string modelo)
+        {
+            ApplicationData.Current.LocalSettings.Values["modelo"] = modelo;
+        }
+
+        public static bool HayClave()
+        {
+            return LeerClave() != "";
         }
     }
 }

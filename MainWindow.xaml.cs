@@ -182,16 +182,40 @@ namespace listas_pendientes
 
         private async void BotonConfiguracion_Click(object sender, RoutedEventArgs e)
         {
+            TextBlock explicacion = new TextBlock
+            {
+                Text = "Opcional. Sin clave la app funciona igual. Con una clave gratuita de Google AI Studio podrá corregir tildes y sugerir recetas. Los textos de tus tareas se enviarían a Google.",
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            HyperlinkButton enlace = new HyperlinkButton
+            {
+                Content = "Conseguir una clave gratis",
+                NavigateUri = new Uri("https://aistudio.google.com/apikey")
+            };
+
             PasswordBox cajaClave = new PasswordBox
             {
-                PlaceholderText = "Pega aquí tu API key de Tavily",
+                PlaceholderText = "Pega aquí tu clave",
                 Password = configuracion.LeerClave()
             };
 
+            TextBox cajaModelo = new TextBox
+            {
+                Header = "Modelo",
+                Text = configuracion.LeerModelo()
+            };
+
+            StackPanel contenido = new StackPanel { Spacing = 8 };
+            contenido.Children.Add(explicacion);
+            contenido.Children.Add(enlace);
+            contenido.Children.Add(cajaClave);
+            contenido.Children.Add(cajaModelo);
+
             ContentDialog dialogo = new ContentDialog
             {
-                Title = "Configuración",
-                Content = cajaClave,
+                Title = "IA (opcional)",
+                Content = contenido,
                 PrimaryButtonText = "Guardar",
                 CloseButtonText = "Cancelar",
                 XamlRoot = this.Content.XamlRoot
@@ -202,6 +226,9 @@ namespace listas_pendientes
             if (resultado == ContentDialogResult.Primary)
             {
                 configuracion.GuardarClave(cajaClave.Password.Trim());
+
+                string modelo = cajaModelo.Text.Trim();
+                configuracion.GuardarModelo(modelo == "" ? "gemini-3.7-flash" : modelo);
             }
         }
 
