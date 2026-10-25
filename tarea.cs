@@ -12,12 +12,13 @@ namespace listas_pendientes
         private bool completada;
         private string tema = "";
         private string tipoDetectado = "";
+        private List<string> recetas = new List<string>();
 
         public string Nombre { get => nombre; set => nombre = value; }
         public bool Completada { get => completada; set => completada = value; }
         public string Tema { get => tema; set => tema = value; }
-
         public string TipoDetectado { get => tipoDetectado; set => tipoDetectado = value; }
+        public List<string> Recetas { get => recetas; set => recetas = value; }
 
         public override string ToString()
         {

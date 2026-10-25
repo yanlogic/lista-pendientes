@@ -158,6 +158,40 @@ namespace listas_pendientes
                 PanelCocina.Visibility = Visibility.Visible;
                 string busqueda = Uri.EscapeDataString("recetas " + tareaElegida.Nombre);
                 EnlaceRecetas.NavigateUri = new Uri("https://www.google.com/search?q=" + busqueda);
+
+                if (tareaElegida.Recetas.Count > 0)
+                {
+                    ListaRecetas.ItemsSource = tareaElegida.Recetas;
+                }
+                else if (configuracion.HayClave())
+                {
+                    ListaRecetas.ItemsSource = new string[] { "Buscando ideas..." };
+                    try
+                    {
+                        List<string> ideas = await service_ia.SugerirRecetas(tareaElegida.Nombre);
+
+                        if (ideas.Count > 0)
+                        {
+                            tareaElegida.Recetas = ideas;
+                            GuardarTodo();
+                        }
+
+                        if (ListaTareas.SelectedItem == tareaElegida)
+                        {
+                            if (ideas.Count > 0) ListaRecetas.ItemsSource = ideas;
+                            else ListaRecetas.ItemsSource = ideasCocina;
+                        }
+                    }
+                    catch
+                    {
+                        if (ListaTareas.SelectedItem == tareaElegida)
+                            ListaRecetas.ItemsSource = ideasCocina;
+                    }
+                }
+                else
+                {
+                    ListaRecetas.ItemsSource = ideasCocina;
+                }
             }
         }
 

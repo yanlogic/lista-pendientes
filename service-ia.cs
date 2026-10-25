@@ -1,8 +1,9 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System;
 
 namespace lista_pendientes
 {
@@ -71,6 +72,28 @@ namespace lista_pendientes
                 return tipo;
 
             return Tipo_tarea.general;
+        }
+        public static async Task<List<string>> SugerirRecetas(string nombreTarea)
+        {
+            string instruccion = "Sugiere 5 ideas de platos caseros fáciles para esta tarea de cocina. "
+                + "Responde en español, un plato por línea, solo el nombre del plato, "
+                + "sin números, sin viñetas y sin explicaciones. Tarea: " + nombreTarea;
+
+            string respuesta = await Preguntar(instruccion);
+            List<string> ideas = new List<string>();
+
+            foreach (string linea in respuesta.Split('\n'))
+            {
+                string limpia = linea.Trim().TrimStart('-', '*', '•', '.', ')', ' ',
+                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9').Trim();
+
+                if (limpia != "" && limpia.Length < 80)
+                    ideas.Add(limpia);
+
+                if (ideas.Count == 5) break;
+            }
+
+            return ideas;
         }
     }
 }
