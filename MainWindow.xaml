@@ -62,6 +62,7 @@
         </Grid>
 
         <StackPanel Grid.Column="2" Margin="16" Spacing="8">
+            <Button x:Name="BotonConfiguracion" Content="⚙ Configuración" Click="BotonConfiguracion_Click" HorizontalAlignment="Right" />
             <TextBlock x:Name="TituloPanel" Text="Selecciona una tarea" FontSize="20" />
             <TextBlock x:Name="TipoPanel" Text="" />
             <StackPanel x:Name="PanelAcademico" Spacing="8" Visibility="Collapsed">

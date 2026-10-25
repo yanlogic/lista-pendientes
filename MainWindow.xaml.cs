@@ -175,5 +175,30 @@ namespace listas_pendientes
             "Lomo saltado",
             "Sopa de verduras con fideos"
         };
+
+        private async void BotonConfiguracion_Click(object sender, RoutedEventArgs e)
+        {
+            PasswordBox cajaClave = new PasswordBox
+            {
+                PlaceholderText = "Pega aquí tu API key de Tavily",
+                Password = configuracion.LeerClave()
+            };
+
+            ContentDialog dialogo = new ContentDialog
+            {
+                Title = "Configuración",
+                Content = cajaClave,
+                PrimaryButtonText = "Guardar",
+                CloseButtonText = "Cancelar",
+                XamlRoot = this.Content.XamlRoot
+            };
+
+            ContentDialogResult resultado = await dialogo.ShowAsync();
+
+            if (resultado == ContentDialogResult.Primary)
+            {
+                configuracion.GuardarClave(cajaClave.Password.Trim());
+            }
+        }
     }
 }
