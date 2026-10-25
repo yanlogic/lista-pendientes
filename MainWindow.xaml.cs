@@ -94,8 +94,11 @@ namespace listas_pendientes
 
         private void ListaTareas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Tarea? tareaElegida = ListaTareas.SelectedItem as Tarea;
+            MostrarPanel(ListaTareas.SelectedItem as Tarea);
+        }
 
+        private async void MostrarPanel(Tarea? tareaElegida)
+        {
             PanelAcademico.Visibility = Visibility.Collapsed;
             PanelAireLibre.Visibility = Visibility.Collapsed;
             PanelCocina.Visibility = Visibility.Collapsed;
@@ -109,6 +112,33 @@ namespace listas_pendientes
 
             TituloPanel.Text = tareaElegida.Nombre;
             Tipo_tarea tipo = detector_tipo.Detectar(tareaElegida.Nombre);
+
+            if (tipo == Tipo_tarea.general)
+            {
+                if (Enum.TryParse(tareaElegida.TipoDetectado, out Tipo_tarea guardado))
+                {
+                    tipo = guardado;
+                }
+                else if (configuracion.HayClave())
+                {
+                    TipoPanel.Text = "Tipo: analizando...";
+                    try
+                    {
+                        Tipo_tarea porIA = await service_ia.ClasificarTipo(tareaElegida.Nombre);
+                        tareaElegida.TipoDetectado = porIA.ToString();
+                        GuardarTodo();
+
+                        if (ListaTareas.SelectedItem == tareaElegida)
+                            MostrarPanel(tareaElegida);
+                    }
+                    catch
+                    {
+                        TipoPanel.Text = "Tipo: " + Tipo_tarea.general;
+                    }
+                    return;
+                }
+            }
+
             TipoPanel.Text = "Tipo: " + tipo;
 
             if (tipo == Tipo_tarea.academica)

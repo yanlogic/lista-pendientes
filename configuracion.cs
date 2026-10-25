@@ -47,7 +47,7 @@ namespace lista_pendientes
         public static string LeerModelo()
         {
             object? valor = ApplicationData.Current.LocalSettings.Values["modelo"];
-            return valor as string ?? "gemini-3.7-flash";
+            return valor as string ?? "gemini-flash-lite-latest";
         }
 
         public static void GuardarModelo(string modelo)

@@ -11,10 +11,13 @@ namespace listas_pendientes
         private string nombre = "";
         private bool completada;
         private string tema = "";
+        private string tipoDetectado = "";
 
         public string Nombre { get => nombre; set => nombre = value; }
         public bool Completada { get => completada; set => completada = value; }
         public string Tema { get => tema; set => tema = value; }
+
+        public string TipoDetectado { get => tipoDetectado; set => tipoDetectado = value; }
 
         public override string ToString()
         {

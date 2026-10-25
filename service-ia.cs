@@ -55,5 +55,22 @@ namespace lista_pendientes
 
             return respuesta;
         }
+
+        public static async Task<Tipo_tarea> ClasificarTipo(string nombreTarea)
+        {
+            string instruccion = "Clasifica esta tarea en una sola categoría: "
+                + "Academica (trabajos, estudios, exámenes), "
+                + "AireLibre (pasear, ejercicio al aire libre, parques), "
+                + "Cocina (cocinar, comidas) o "
+                + "General (cualquier otra cosa). "
+                + "Responde únicamente con una de esas cuatro palabras. Tarea: " + nombreTarea;
+
+            string respuesta = (await Preguntar(instruccion)).Trim();
+
+            if (Enum.TryParse(respuesta, true, out Tipo_tarea tipo) && Enum.IsDefined(tipo))
+                return tipo;
+
+            return Tipo_tarea.general;
+        }
     }
 }
