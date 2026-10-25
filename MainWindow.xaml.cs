@@ -126,6 +126,8 @@ namespace listas_pendientes
             else if (tipo == Tipo_tarea.cocina)
             {
                 PanelCocina.Visibility = Visibility.Visible;
+                string busqueda = Uri.EscapeDataString("recetas " + tareaElegida.Nombre);
+                EnlaceRecetas.NavigateUri = new Uri("https://www.google.com/search?q=" + busqueda);
             }
         }
 

@@ -67,7 +67,7 @@
             <TextBlock x:Name="TipoPanel" Text="" />
             <StackPanel x:Name="PanelAcademico" Spacing="8" Visibility="Collapsed">
                 <TextBlock Text="Tema del trabajo:" />
-                <TextBox x:Name="CajaTema" PlaceholderText="Ej. Anafilaxia en niños" TextChanged="CajaTema_TextChanged" />
+                <TextBox x:Name="CajaTema" PlaceholderText="Ej. Anafilaxia en niños (escribe con tildes)" TextChanged="CajaTema_TextChanged" />
                 <TextBlock Text="Apps sugeridas:" />
                 <TextBlock TextWrapping="Wrap">
                     <Run Text="• Word" FontWeight="Bold" />
@@ -100,8 +100,7 @@
             <StackPanel x:Name="PanelCocina" Spacing="8" Visibility="Collapsed">
                 <TextBlock Text="Ideas para cocinar:" />
                 <ListView x:Name="ListaRecetas" SelectionMode="None" />
-                <HyperlinkButton Content="Buscar más recetas"
-                     NavigateUri="https://www.google.com/search?q=recetas+para+la+cena" />
+                <HyperlinkButton x:Name="EnlaceRecetas" Content="Buscar más recetas" />
             </StackPanel>
         </StackPanel>
     </Grid>
