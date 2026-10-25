@@ -115,6 +115,8 @@ namespace listas_pendientes
             {
                 PanelAcademico.Visibility = Visibility.Visible;
                 CajaTema.Text = tareaElegida.Tema;
+                ListaFuentes.ItemsSource = fuentesEjemplo;
+                EstadoFuentes.Text = "";
             }
             else if (tipo == Tipo_tarea.aireLibre)
             {
@@ -199,6 +201,31 @@ namespace listas_pendientes
             {
                 configuracion.GuardarClave(cajaClave.Password.Trim());
             }
+        }
+
+        private async void BotonBuscarFuentes_Click(object sender, RoutedEventArgs e)
+        {
+            Tarea? tareaElegida = ListaTareas.SelectedItem as Tarea;
+            if (tareaElegida == null) return;
+
+            string tema = CajaTema.Text.Trim();
+            if (tema == "") tema = tareaElegida.Nombre;
+
+            BotonBuscarFuentes.IsEnabled = false;
+            EstadoFuentes.Text = "Buscando...";
+
+            try
+            {
+                List<Fuente> encontradas = await buscar_fuentes.Buscar(tema);
+                ListaFuentes.ItemsSource = encontradas;
+                EstadoFuentes.Text = encontradas.Count == 0 ? "No se encontraron fuentes para ese tema." : "";
+            }
+            catch
+            {
+                EstadoFuentes.Text = "No se pudo buscar. Revisa tu conexión a internet.";
+            }
+
+            BotonBuscarFuentes.IsEnabled = true;
         }
     }
 }

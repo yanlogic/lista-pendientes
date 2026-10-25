@@ -62,7 +62,7 @@
         </Grid>
 
         <StackPanel Grid.Column="2" Margin="16" Spacing="8">
-            <Button x:Name="BotonConfiguracion" Content="⚙ Configuración" Click="BotonConfiguracion_Click" HorizontalAlignment="Right" />
+            <Button x:Name="BotonConfiguracion" Content="Configuración" Click="BotonConfiguracion_Click" HorizontalAlignment="Right" />
             <TextBlock x:Name="TituloPanel" Text="Selecciona una tarea" FontSize="20" />
             <TextBlock x:Name="TipoPanel" Text="" />
             <StackPanel x:Name="PanelAcademico" Spacing="8" Visibility="Collapsed">
@@ -78,10 +78,14 @@
                     <Run Text=" ← para armar la presentación o exposición" />
                 </TextBlock>
                 <TextBlock Text="Fuentes sugeridas:" />
+                <Button x:Name="BotonBuscarFuentes" Content="Buscar fuentes sobre el tema" Click="BotonBuscarFuentes_Click" />
+                <TextBlock x:Name="EstadoFuentes" TextWrapping="Wrap" />
                 <ListView x:Name="ListaFuentes" SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:Fuente">
-                            <HyperlinkButton Content="{x:Bind Titulo}" NavigateUri="{x:Bind Enlace}" />
+                            <HyperlinkButton NavigateUri="{x:Bind Enlace}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                                <TextBlock Text="{x:Bind Titulo}" TextWrapping="Wrap" />
+                            </HyperlinkButton>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
