@@ -1,4 +1,4 @@
-using lista_pendientes;
+Ôªøusing lista_pendientes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -33,7 +33,7 @@ namespace listas_pendientes
             new Fuente { Titulo = "SciELO", Enlace = new Uri("https://scielo.org") },
             new Fuente { Titulo = "Redalyc", Enlace = new Uri("https://www.redalyc.org") },
             new Fuente { Titulo = "Dialnet", Enlace = new Uri("https://dialnet.unirioja.es") },
-            new Fuente { Titulo = "Google AcadÈmico", Enlace = new Uri("https://scholar.google.com") }
+            new Fuente { Titulo = "Google Acad√©mico", Enlace = new Uri("https://scholar.google.com") }
         };
 
         public MainWindow()
@@ -165,10 +165,10 @@ namespace listas_pendientes
 
         private string[] tipsAireLibre =
         {
-            "Si el piso est· muy caliente para tu mano, tambiÈn lo est· para las patitas de tu perro.",
+            "Si el piso est√° muy caliente para tu mano, tambi√©n lo est√° para las patitas de tu perro.",
             "Lleva agua para ti y para tu mascota, aunque el paseo sea corto.",
-            "Los paseos con olfateo cansan m·s a un perro que correr: dÈjalo oler con calma.",
-            "Salir a caminar 20 minutos ya mejora el ·nimo y la concentraciÛn."
+            "Los paseos con olfateo cansan m√°s a un perro que correr: d√©jalo oler con calma.",
+            "Salir a caminar 20 minutos ya mejora el √°nimo y la concentraci√≥n."
         };
 
         private string[] ideasCocina =
@@ -184,7 +184,7 @@ namespace listas_pendientes
         {
             TextBlock explicacion = new TextBlock
             {
-                Text = "Opcional. Sin clave la app funciona igual. Con una clave gratuita de Google AI Studio podr· corregir tildes y sugerir recetas. Los textos de tus tareas se enviarÌan a Google.",
+                Text = "Opcional. Sin clave la app funciona igual. Con una clave gratuita de Google AI Studio podr√° corregir tildes y sugerir recetas. Los textos de tus tareas se enviar√≠an a Google.",
                 TextWrapping = TextWrapping.Wrap
             };
 
@@ -196,7 +196,7 @@ namespace listas_pendientes
 
             PasswordBox cajaClave = new PasswordBox
             {
-                PlaceholderText = "Pega aquÌ tu clave",
+                PlaceholderText = "Pega aqu√≠ tu clave",
                 Password = configuracion.LeerClave()
             };
 
@@ -241,17 +241,37 @@ namespace listas_pendientes
             if (tema == "") tema = tareaElegida.Nombre;
 
             BotonBuscarFuentes.IsEnabled = false;
+            string aviso = "";
+
+            if (configuracion.HayClave())
+            {
+                EstadoFuentes.Text = "Corrigiendo tildes...";
+                try
+                {
+                    string corregido = await service_ia.CorregirTildes(tema);
+                    if (corregido != tema)
+                    {
+                        tema = corregido;
+                        CajaTema.Text = corregido;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    aviso = "No se pudo usar la IA (" + ex.Message + "). Revisa tu clave y el modelo en la configuraci√≥n. ";
+                }
+            }
+
             EstadoFuentes.Text = "Buscando...";
 
             try
             {
                 List<Fuente> encontradas = await buscar_fuentes.Buscar(tema);
                 ListaFuentes.ItemsSource = encontradas;
-                EstadoFuentes.Text = encontradas.Count == 0 ? "No se encontraron fuentes para ese tema." : "";
+                EstadoFuentes.Text = aviso + (encontradas.Count == 0 ? "No se encontraron fuentes para ese tema." : "");
             }
             catch
             {
-                EstadoFuentes.Text = "No se pudo buscar. Revisa tu conexiÛn a internet.";
+                EstadoFuentes.Text = aviso + "No se pudo buscar. Revisa tu conexi√≥n a internet.";
             }
 
             BotonBuscarFuentes.IsEnabled = true;

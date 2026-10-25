@@ -9,8 +9,7 @@ namespace lista_pendientes
 {
     public class buscar_fuentes
     {
-        private static readonly HttpClient cliente = new HttpClient();
-
+        private static readonly HttpClient cliente = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
         public static async Task<List<Fuente>> Buscar(string tema)
         {
             string url = "https://api.crossref.org/works?rows=5&select=title,URL&query="
